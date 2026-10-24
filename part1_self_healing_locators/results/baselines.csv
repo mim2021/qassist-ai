@@ -1,0 +1,19 @@
+change,elements,locator,correct,usable,accuracy_all,accuracy_usable
+none,84,by id,40,42,0.4762,0.9524
+none,84,by name,7,9,0.0833,0.7778
+none,84,by XPath,84,84,1.0,1.0
+rename,420,by id,72,210,0.1714,0.3429
+rename,420,by name,35,45,0.0833,0.7778
+rename,420,by XPath,420,420,1.0,1.0
+text,420,by id,200,210,0.4762,0.9524
+text,420,by name,35,45,0.0833,0.7778
+text,420,by XPath,420,420,1.0,1.0
+layout,420,by id,200,210,0.4762,0.9524
+layout,420,by name,35,45,0.0833,0.7778
+layout,420,by XPath,0,420,0.0,0.0
+reorder,420,by id,200,210,0.4762,0.9524
+reorder,420,by name,35,45,0.0833,0.7778
+reorder,420,by XPath,316,420,0.7524,0.7524
+mixed,420,by id,62,210,0.1476,0.2952
+mixed,420,by name,35,45,0.0833,0.7778
+mixed,420,by XPath,0,420,0.0,0.0
