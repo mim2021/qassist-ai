@@ -1,0 +1,21 @@
+{
+  "requirement": "R2",
+  "prompt": "A",
+  "model": "qwen2.5:3b",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_gpu": 0,
+    "num_predict": 4096
+  },
+  "valid": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "seconds": 41,
+      "output_tokens": 457,
+      "problems": [],
+      "text": "{\"test_cases\": [\n    {\"id\": \"TC1\", \"title\": \"Positive Test Case for Password Length and Complexity\", \"type\": \"positive\",\n     \"preconditions\": \"User is logged in and on the account page, current password is correct.\",\n     \"steps\": [\n         \"User enters a password that is 8 characters long and contains at least one digit.\",\n         \"User confirms the password and clicks the 'Update Password' button.\"\n     ],\n     \"expected_result\": \"Password is updated successfully and user sees the message 'Password updated'.\",\n     \"covers\": [\"AC1\", \"AC2\", \"AC3\"]\n     },\n    {\"id\": \"TC2\", \"title\": \"Negative Test Case for Password Length\", \"type\": \"negative\",\n     \"preconditions\": \"User is logged in and on the account page, current password is correct.\",\n     \"steps\": [\n         \"User enters a password that is 65 characters long.\",\n         \"User confirms the password and clicks the 'Update Password' button.\"\n     ],\n     \"expected_result\": \"Password update fails and user sees an error message.\",\n     \"covers\": [\"AC1\"]\n     },\n    {\"id\": \"TC3\", \"title\": \"Negative Test Case for Password Complexity\", \"type\": \"negative\",\n     \"preconditions\": \"User is logged in and on the account page, current password is correct.\",\n     \"steps\": [\n         \"User enters a password that does not contain any digits.\",\n         \"User confirms the password and clicks the 'Update Password' button.\"\n     ],\n     \"expected_result\": \"Password update fails and user sees an error message.\",\n     \"covers\": [\"AC2\"]\n     },\n    {\"id\": \"TC4\", \"title\": \"Negative Test Case for Password Same As Current\", \"type\": \"negative\",\n     \"preconditions\": \"User is logged in and on the account page, current password is correct.\",\n     \"steps\": [\n         \"User enters the same password as the current password.\",\n         \"User confirms the password and clicks the 'Update Password' button.\"\n     ],\n     \"expected_result\": \"Password update fails and user sees an error message.\",\n     \"covers\": [\"AC3\"]\n     }\n]}"
+    }
+  ]
+}

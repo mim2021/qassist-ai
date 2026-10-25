@@ -1,0 +1,21 @@
+{
+  "requirement": "R3",
+  "prompt": "A",
+  "model": "qwen2.5:3b",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_gpu": 0,
+    "num_predict": 4096
+  },
+  "valid": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "seconds": 58,
+      "output_tokens": 750,
+      "problems": [],
+      "text": "{\"test_cases\": [\n    {\"id\": \"TC1\", \"title\": \"Search with valid term\", \"type\": \"positive\", \"preconditions\": \"User is on the product search page\", \"steps\": [\"User enters 'Lamp' in the search box\", \"User submits the search\"], \"expected_result\": \"The search results page displays 20 products related to 'Lamp'\", \"covers\": [\"AC1\", \"AC2\", \"AC3\", \"AC4\"]},\n    {\"id\": \"TC2\", \"title\": \"Search with invalid term\", \"type\": \"negative\", \"preconditions\": \"User is on the product search page\", \"steps\": [\"User enters 'L' in the search box\", \"User submits the search\"], \"expected_result\": \"The search results page displays 'No products found'\", \"covers\": [\"AC1\", \"AC3\"]},\n    {\"id\": \"TC3\", \"title\": \"Search with term longer than 50 characters\", \"type\": \"negative\", \"preconditions\": \"User is on the product search page\", \"steps\": [\"User enters 'L' * 51 in the search box\", \"User submits the search\"], \"expected_result\": \"The search results page displays 'No products found'\", \"covers\": [\"AC1\", \"AC3\"]},\n    {\"id\": \"TC4\", \"title\": \"Search with term shorter than 2 characters\", \"type\": \"negative\", \"preconditions\": \"User is on the product search page\", \"steps\": [\"User enters 'L' in the search box\", \"User submits the search\"], \"expected_result\": \"The search results page displays 'No products found'\", \"covers\": [\"AC1\", \"AC3\"]},\n    {\"id\": \"TC5\", \"title\": \"Search with term in all caps\", \"type\": \"positive\", \"preconditions\": \"User is on the product search page\", \"steps\": [\"User enters 'LAMP' in the search box\", \"User submits the search\"], \"expected_result\": \"The search results page displays 20 products related to 'LAMP'\", \"covers\": [\"AC1\", \"AC2\", \"AC3\", \"AC4\"]},\n    {\"id\": \"TC6\", \"title\": \"Search with term in mixed case\", \"type\": \"positive\", \"preconditions\": \"User is on the product search page\", \"steps\": [\"User enters 'lAmP' in the search box\", \"User submits the search\"], \"expected_result\": \"The search results page displays 20 products related to 'LAMP'\", \"covers\": [\"AC1\", \"AC2\", \"AC3\", \"AC4\"]},\n    {\"id\": \"TC7\", \"title\": \"Search with term that does not match any products\", \"type\": \"negative\", \"preconditions\": \"User is on the product search page\", \"steps\": [\"User enters 'xyz' in the search box\", \"User submits the search\"], \"expected_result\": \"The search results page displays 'No products found'\", \"covers\": [\"AC1\", \"AC3\"]},\n    {\"id\": \"TC8\", \"title\": \"Search with term that matches multiple products\", \"type\": \"positive\", \"preconditions\": \"User is on the product search page\", \"steps\": [\"User enters 'lamp' in the search box\", \"User submits the search\"], \"expected_result\": \"The search results page displays 20 products related to 'lamp'\", \"covers\": [\"AC1\", \"AC2\", \"AC3\", \"AC4\"]}\n]}"
+    }
+  ]
+}

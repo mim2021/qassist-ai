@@ -1,0 +1,21 @@
+{
+  "requirement": "R2",
+  "prompt": "B",
+  "model": "qwen2.5:3b",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_gpu": 0,
+    "num_predict": 4096
+  },
+  "valid": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "seconds": 52,
+      "output_tokens": 623,
+      "problems": [],
+      "text": "{\"test_cases\": [\n    {\"id\": \"TC1\", \"title\": \"Test password length between 8 and 64 characters\", \"type\": \"positive\", \"preconditions\": \"User is logged in and on the account page\", \"steps\": [\"Enter a password that is 8 characters long\", \"Enter a password that is 64 characters long\"], \"expected_result\": \"The password is accepted and the user sees the 'Password updated' message\", \"covers\": [\"AC1\"]},\n    {\"id\": \"TC2\", \"title\": \"Test password length just below 8 characters\", \"type\": \"boundary\", \"preconditions\": \"User is logged in and on the account page\", \"steps\": [\"Enter a password that is 7 characters long\"], \"expected_result\": \"The password is rejected and the user sees an error message\", \"covers\": [\"AC1\"]},\n    {\"id\": \"TC3\", \"title\": \"Test password length just above 64 characters\", \"type\": \"boundary\", \"preconditions\": \"User is logged in and on the account page\", \"steps\": [\"Enter a password that is 65 characters long\"], \"expected_result\": \"The password is rejected and the user sees an error message\", \"covers\": [\"AC1\"]},\n    {\"id\": \"TC4\", \"title\": \"Test password with only letters and no digits\", \"type\": \"negative\", \"preconditions\": \"User is logged in and on the account page\", \"steps\": [\"Enter a password that consists only of letters and no digits\"], \"expected_result\": \"The password is rejected and the user sees an error message\", \"covers\": [\"AC1\", \"AC2\"]},\n    {\"id\": \"TC5\", \"title\": \"Test password with only digits and no letters\", \"type\": \"negative\", \"preconditions\": \"User is logged in and on the account page\", \"steps\": [\"Enter a password that consists only of digits and no letters\"], \"expected_result\": \"The password is rejected and the user sees an error message\", \"covers\": [\"AC1\", \"AC2\"]},\n    {\"id\": \"TC6\", \"title\": \"Test password with letters and digits, but the same as the current password\", \"type\": \"negative\", \"preconditions\": \"User is logged in and on the account page\", \"steps\": [\"Enter a password that is the same as the current password\"], \"expected_result\": \"The password is rejected and the user sees an error message\", \"covers\": [\"AC1\", \"AC3\"]},\n    {\"id\": \"TC7\", \"title\": \"Test successful password change\", \"type\": \"positive\", \"preconditions\": \"User is logged in and on the account page\", \"steps\": [\"Enter a valid password that meets all requirements\"], \"expected_result\": \"The password is accepted and the user sees the 'Password updated' message\", \"covers\": [\"AC1\", \"AC2\", \"AC3\"]}\n]}"
+    }
+  ]
+}

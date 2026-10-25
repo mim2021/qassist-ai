@@ -1,0 +1,21 @@
+{
+  "requirement": "R8",
+  "prompt": "A",
+  "model": "qwen2.5:3b",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_gpu": 0,
+    "num_predict": 4096
+  },
+  "valid": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "seconds": 46,
+      "output_tokens": 633,
+      "problems": [],
+      "text": "{\"test_cases\": [\n    {\n        \"id\": \"TC1\",\n        \"title\": \"Test order cancellation within 24 hours\",\n        \"type\": \"positive\",\n        \"preconditions\": \"An order has been placed and is within 24 hours of its placement time.\",\n        \"steps\": [\n            \"1. Navigate to the order history page.\",\n            \"2. Select an order that has been placed within 24 hours.\",\n            \"3. Click on the 'Cancel Order' button.\",\n            \"4. Confirm the cancellation by clicking 'Yes, Cancel Order'.\"\n        ],\n        \"expected_result\": \"The order status changes to 'Cancelled' and a cancellation email is sent to the customer.\",\n        \"covers\": [\"AC1\"]\n    },\n    {\n        \"id\": \"TC2\",\n        \"title\": \"Test order cancellation after 24 hours\",\n        \"type\": \"negative\",\n        \"preconditions\": \"An order has been placed more than 24 hours ago.\",\n        \"steps\": [\n            \"1. Navigate to the order history page.\",\n            \"2. Select an order that has been placed more than 24 hours ago.\",\n            \"3. Attempt to click on the 'Cancel Order' button.\",\n            \"4. Observe the behavior of the system.\"\n        ],\n        \"expected_result\": \"The system does not allow the order to be cancelled and should display an error message indicating that the order cannot be cancelled after 24 hours.\",\n        \"covers\": [\"AC1\"]\n    },\n    {\n        \"id\": \"TC3\",\n        \"title\": \"Test order cancellation after shipment\",\n        \"type\": \"negative\",\n        \"preconditions\": \"An order has been placed and has already been shipped.\",\n        \"steps\": [\n            \"1. Navigate to the order history page.\",\n            \"2. Select an order that has already been shipped.\",\n            \"3. Attempt to click on the 'Cancel Order' button.\",\n            \"4. Observe the behavior of the system.\"\n        ],\n        \"expected_result\": \"The system does not allow the order to be cancelled and should display an error message indicating that the order cannot be cancelled after it has been shipped.\",\n        \"covers\": [\"AC2\"]\n    },\n    {\n        \"id\": \"TC4\",\n        \"title\": \"Test order cancellation and email\",\n        \"type\": \"positive\",\n        \"preconditions\": \"An order has been placed and is within 24 hours of its placement time.\",\n        \"steps\": [\n            \"1. Navigate to the order history page.\",\n            \"2. Select an order that has been placed within 24 hours.\",\n            \"3. Click on the 'Cancel Order' button.\",\n            \"4. Confirm the cancellation by clicking 'Yes, Cancel Order'.\",\n            \"5. Check the customer's email for a cancellation email.\"\n        ],\n        \"expected_result\": \"The order status changes to 'Cancelled' and a cancellation email is sent to the customer.\",\n        \"covers\": [\"AC3\", \"AC4\"]\n    }\n]}"
+    }
+  ]
+}

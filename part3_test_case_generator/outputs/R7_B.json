@@ -1,0 +1,21 @@
+{
+  "requirement": "R7",
+  "prompt": "B",
+  "model": "qwen2.5:3b",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_gpu": 0,
+    "num_predict": 4096
+  },
+  "valid": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "seconds": 70,
+      "output_tokens": 940,
+      "problems": [],
+      "text": "{\"test_cases\": [\n    {\"id\": \"TC1\", \"title\": \"Test uploading a valid JPG file\", \"type\": \"positive\", \"preconditions\": \"User is logged in and has a profile picture\", \"steps\": [\"User uploads a JPG file (e.g., 'image.jpg')\", \"Check if the file is a JPG or PNG\"], \"expected_result\": \"The profile picture is updated successfully and the new picture is shown on the profile page\", \"covers\": [\"AC1\", \"AC2\", \"AC3\"]},\n    {\"id\": \"TC2\", \"title\": \"Test uploading a valid PNG file\", \"type\": \"positive\", \"preconditions\": \"User is logged in and has a profile picture\", \"steps\": [\"User uploads a PNG file (e.g., 'image.png')\", \"Check if the file is a JPG or PNG\"], \"expected_result\": \"The profile picture is updated successfully and the new picture is shown on the profile page\", \"covers\": [\"AC1\", \"AC2\", \"AC3\"]},\n    {\"id\": \"TC3\", \"title\": \"Test uploading a file larger than 5MB\", \"type\": \"negative\", \"preconditions\": \"User is logged in and has a profile picture\", \"steps\": [\"User uploads a file larger than 5MB (e.g., 'image_5MB.jpg')\"], \"expected_result\": \"The upload fails and the page shows 'Only JPG and PNG files are allowed'\", \"covers\": [\"AC1\", \"AC2\"]},\n    {\"id\": \"TC4\", \"title\": \"Test uploading a file smaller than 5MB\", \"type\": \"positive\", \"preconditions\": \"User is logged in and has a profile picture\", \"steps\": [\"User uploads a file smaller than 5MB (e.g., 'image_4MB.jpg')\"], \"expected_result\": \"The profile picture is updated successfully and the new picture is shown on the profile page\", \"covers\": [\"AC1\", \"AC2\", \"AC3\"]},\n    {\"id\": \"TC5\", \"title\": \"Test uploading a file just below the 5MB limit\", \"type\": \"positive\", \"preconditions\": \"User is logged in and has a profile picture\", \"steps\": [\"User uploads a file just below the 5MB limit (e.g., 'image_4.99MB.jpg')\"], \"expected_result\": \"The profile picture is updated successfully and the new picture is shown on the profile page\", \"covers\": [\"AC1\", \"AC2\", \"AC3\"]},\n    {\"id\": \"TC6\", \"title\": \"Test uploading a file just above the 5MB limit\", \"type\": \"negative\", \"preconditions\": \"User is logged in and has a profile picture\", \"steps\": [\"User uploads a file just above the 5MB limit (e.g., 'image_5.01MB.jpg')\"], \"expected_result\": \"The upload fails and the page shows 'Only JPG and PNG files are allowed'\", \"covers\": [\"AC1\", \"AC2\"]},\n    {\"id\": \"TC7\", \"title\": \"Test uploading a file of an unsupported type\", \"type\": \"negative\", \"preconditions\": \"User is logged in and has a profile picture\", \"steps\": [\"User uploads a file of an unsupported type (e.g., 'image.pdf')\"], \"expected_result\": \"The upload fails and the page shows 'Only JPG and PNG files are allowed'\", \"covers\": [\"AC1\", \"AC2\"]},\n    {\"id\": \"TC8\", \"title\": \"Test uploading a file of an unsupported type (boundary)\", \"type\": \"boundary\", \"preconditions\": \"User is logged in and has a profile picture\", \"steps\": [\"User uploads a file of an unsupported type (e.g., 'image.pdf')\"], \"expected_result\": \"The upload fails and the page shows 'Only JPG and PNG files are allowed'\", \"covers\": [\"AC1\", \"AC2\"]},\n    {\"id\": \"TC9\", \"title\": \"Test uploading a file of an unsupported type (boundary)\", \"type\": \"boundary\", \"preconditions\": \"User is logged in and has a profile picture\", \"steps\": [\"User uploads a file of an unsupported type (e.g., 'image.pdf')\"], \"expected_result\": \"The upload fails and the page shows 'Only JPG and PNG files are allowed'\", \"covers\": [\"AC1\", \"AC2\"]}\n]}"
+    }
+  ]
+}

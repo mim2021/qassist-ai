@@ -1,0 +1,21 @@
+{
+  "requirement": "R1",
+  "prompt": "B",
+  "model": "qwen2.5:3b",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_gpu": 0,
+    "num_predict": 4096
+  },
+  "valid": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "seconds": 72,
+      "output_tokens": 825,
+      "problems": [],
+      "text": "{\"test_cases\": [\n    {\"id\": \"TC1\", \"title\": \"Test login with correct email and password\", \"type\": \"positive\", \"preconditions\": \"User is logged out and has a valid account\", \"steps\": [\"Enter correct email\", \"Enter correct password\", \"Click login button\"], \"expected_result\": \"User is redirected to account dashboard\", \"covers\": [\"AC1\"]},\n    {\"id\": \"TC2\", \"title\": \"Test login with wrong password\", \"type\": \"positive\", \"preconditions\": \"User is logged out and has a valid account\", \"steps\": [\"Enter correct email\", \"Enter wrong password\", \"Click login button\"], \"expected_result\": \"Page shows 'Invalid email or password'\", \"covers\": [\"AC2\"]},\n    {\"id\": \"TC3\", \"title\": \"Test login with 5 consecutive wrong passwords\", \"type\": \"positive\", \"preconditions\": \"User is logged out and has a valid account\", \"steps\": [\"Enter correct email\", \"Enter 5 consecutive wrong passwords\", \"Click login button\"], \"expected_result\": \"Account is locked for 15 minutes\", \"covers\": [\"AC3\"]},\n    {\"id\": \"TC4\", \"title\": \"Test login with empty email field\", \"type\": \"negative\", \"preconditions\": \"User is logged out and has a valid account\", \"steps\": [\"Enter empty email\", \"Enter any password\", \"Click login button\"], \"expected_result\": \"Page shows 'Email is required'\", \"covers\": [\"AC4\"]},\n    {\"id\": \"TC5\", \"title\": \"Test login with email just below the boundary\", \"type\": \"boundary\", \"preconditions\": \"User is logged out and has a valid account\", \"steps\": [\"Enter email just below the boundary\", \"Enter correct password\", \"Click login button\"], \"expected_result\": \"User is redirected to account dashboard\", \"covers\": [\"AC1\"]},\n    {\"id\": \"TC6\", \"title\": \"Test login with email exactly at the boundary\", \"type\": \"boundary\", \"preconditions\": \"User is logged out and has a valid account\", \"steps\": [\"Enter email exactly at the boundary\", \"Enter correct password\", \"Click login button\"], \"expected_result\": \"User is redirected to account dashboard\", \"covers\": [\"AC1\"]},\n    {\"id\": \"TC7\", \"title\": \"Test login with email just above the boundary\", \"type\": \"boundary\", \"preconditions\": \"User is logged out and has a valid account\", \"steps\": [\"Enter email just above the boundary\", \"Enter correct password\", \"Click login button\"], \"expected_result\": \"User is redirected to account dashboard\", \"covers\": [\"AC1\"]},\n    {\"id\": \"TC8\", \"title\": \"Test login with password just below the boundary\", \"type\": \"boundary\", \"preconditions\": \"User is logged out and has a valid account\", \"steps\": [\"Enter correct email\", \"Enter password just below the boundary\", \"Click login button\"], \"expected_result\": \"User is redirected to account dashboard\", \"covers\": [\"AC1\"]},\n    {\"id\": \"TC9\", \"title\": \"Test login with password exactly at the boundary\", \"type\": \"boundary\", \"preconditions\": \"User is logged out and has a valid account\", \"steps\": [\"Enter correct email\", \"Enter password exactly at the boundary\", \"Click login button\"], \"expected_result\": \"User is redirected to account dashboard\", \"covers\": [\"AC1\"]},\n    {\"id\": \"TC10\", \"title\": \"Test login with password just above the boundary\", \"type\": \"boundary\", \"preconditions\": \"User is logged out and has a valid account\", \"steps\": [\"Enter correct email\", \"Enter password just above the boundary\", \"Click login button\"], \"expected_result\": \"User is redirected to account dashboard\", \"covers\": [\"AC1\"]}\n]}"
+    }
+  ]
+}

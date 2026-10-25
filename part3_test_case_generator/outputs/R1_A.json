@@ -1,0 +1,21 @@
+{
+  "requirement": "R1",
+  "prompt": "A",
+  "model": "qwen2.5:3b",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_gpu": 0,
+    "num_predict": 4096
+  },
+  "valid": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "seconds": 39,
+      "output_tokens": 414,
+      "problems": [],
+      "text": "{\"test_cases\": [\n    {\"id\": \"TC1\", \"title\": \"Positive Test for Correct Email and Password\", \"type\": \"positive\",\n     \"preconditions\": \"User is registered and has a valid email and password.\",\n     \"steps\": [\n         \"1. Enter the registered email and correct password.\",\n         \"2. Click the login button.\"\n     ],\n     \"expected_result\": \"User is redirected to the account dashboard.\",\n     \"covers\": [\"AC1\"]\n     },\n    {\"id\": \"TC2\", \"title\": \"Negative Test for Correct Email and Wrong Password\", \"type\": \"negative\",\n     \"preconditions\": \"User is registered and has a valid email and password.\",\n     \"steps\": [\n         \"1. Enter the registered email and wrong password.\",\n         \"2. Click the login button.\"\n     ],\n     \"expected_result\": \"Page shows 'Invalid email or password'.\",\n     \"covers\": [\"AC2\"]\n     },\n    {\"id\": \"TC3\", \"title\": \"Negative Test for 5 Failed Attempts in a Row\", \"type\": \"negative\",\n     \"preconditions\": \"User is registered and has a valid email and password.\",\n     \"steps\": [\n         \"1. Enter the registered email and incorrect password 5 times in a row.\",\n         \"2. Click the login button after each incorrect attempt.\"\n     ],\n     \"expected_result\": \"Page shows 'Invalid email or password' and account is locked for 15 minutes.\",\n     \"covers\": [\"AC3\"]\n     },\n    {\"id\": \"TC4\", \"title\": \"Negative Test for Empty Email Field\", \"type\": \"negative\",\n     \"preconditions\": \"User is registered and has a valid email and password.\",\n     \"steps\": [\n         \"1. Leave the email field empty and enter the correct password.\",\n         \"2. Click the login button.\"\n     ],\n     \"expected_result\": \"Page shows 'Email is required'.\",\n     \"covers\": [\"AC4\"]\n     }\n]}"
+    }
+  ]
+}

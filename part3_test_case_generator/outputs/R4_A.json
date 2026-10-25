@@ -1,0 +1,21 @@
+{
+  "requirement": "R4",
+  "prompt": "A",
+  "model": "qwen2.5:3b",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_gpu": 0,
+    "num_predict": 4096
+  },
+  "valid": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "seconds": 52,
+      "output_tokens": 709,
+      "problems": [],
+      "text": "{\"test_cases\": [\n    {\"id\": \"TC1\", \"title\": \"Add a product with quantity 1 to the cart\", \"type\": \"positive\", \"preconditions\": \"User is on the product page and has a valid session.\", \"steps\": [\"User clicks 'Add to cart' button for a product.\", \"Product quantity is 1.\"], \"expected_result\": \"Product is added to the cart with quantity 1.\", \"covers\": [\"AC1\"]},\n    {\"id\": \"TC2\", \"title\": \"Add multiple products with quantity 1 to the cart\", \"type\": \"positive\", \"preconditions\": \"User is on the product page and has a valid session.\", \"steps\": [\"User clicks 'Add to cart' button for two different products.\", \"Both products have quantity 1.\"], \"expected_result\": \"Both products are added to the cart with quantity 1.\", \"covers\": [\"AC1\"]},\n    {\"id\": \"TC3\", \"title\": \"Add a product with quantity 2 to the cart\", \"type\": \"positive\", \"preconditions\": \"User is on the product page and has a valid session.\", \"steps\": [\"User clicks 'Add to cart' button for a product.\", \"User then clicks 'Add to cart' button again for the same product.\", \"Product quantity is 2.\"], \"expected_result\": \"Product is added to the cart with quantity 2.\", \"covers\": [\"AC1\"]},\n    {\"id\": \"TC4\", \"title\": \"Quantity out of range for a product\", \"type\": \"negative\", \"preconditions\": \"User is on the product page and has a valid session.\", \"steps\": [\"User clicks 'Add to cart' button for a product.\", \"User then tries to add the product with quantity 11.\", \"Product quantity is 10.\"], \"expected_result\": \"User is notified that the quantity is out of range.\", \"covers\": [\"AC2\"]},\n    {\"id\": \"TC5\", \"title\": \"Remove a product from the cart\", \"type\": \"positive\", \"preconditions\": \"User is on the cart page and has a valid session.\", \"steps\": [\"User clicks 'Remove' button for a product.\", \"Product quantity is 0.\"], \"expected_result\": \"Product is removed from the cart.\", \"covers\": [\"AC4\"]},\n    {\"id\": \"TC6\", \"title\": \"Cart total is calculated correctly\", \"type\": \"positive\", \"preconditions\": \"User is on the cart page and has a valid session.\", \"steps\": [\"User adds two products with quantities 1 and 2 respectively.\", \"User clicks 'Update cart total' button.\", \"Cart total is the sum of prices times quantities.\"], \"expected_result\": \"Cart total is calculated correctly.\", \"covers\": [\"AC3\"]},\n    {\"id\": \"TC7\", \"title\": \"Empty cart shows 'Your cart is empty'\", \"type\": \"positive\", \"preconditions\": \"User is on the cart page and has a valid session.\", \"steps\": [\"User adds two products with quantities 1 and 2 respectively.\", \"User clicks 'Remove' button for both products.\", \"User clicks 'Update cart total' button.\", \"Cart total is 0.\"], \"expected_result\": \"Empty cart shows 'Your cart is empty'.\", \"covers\": [\"AC5\"]}\n]}"
+    }
+  ]
+}
