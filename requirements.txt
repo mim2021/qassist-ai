@@ -1,0 +1,7 @@
+# The versions I ran with (Python 3.14). Part 3 needs no packages, only Ollama.
+numpy==2.5.4
+pandas==3.1.0
+scikit-learn==1.9.1
+selenium==4.51.0
+sentence-transformers==6.2.0
+torch==2.14.1

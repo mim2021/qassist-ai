@@ -218,3 +218,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# QAssist AI: data and files that the scripts can make again
+part2_duplicate_bug_finder/data/
+part1_self_healing_locators/results/pairs.csv
+part2_duplicate_bug_finder/models/

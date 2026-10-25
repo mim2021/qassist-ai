@@ -118,7 +118,7 @@ The data is also small: 8 pages on 3 sites, and most pages have fewer than 10 el
 
 ## How to run it
 
-You need Python 3.8 or newer, Chrome, and three packages:
+You need Python 3, Chrome, and three packages (I used Python 3.14 and the versions in `requirements.txt` in the main folder):
 
 ```
 pip install selenium scikit-learn numpy
@@ -133,7 +133,7 @@ python pair_features.py
 python train_matcher.py
 ```
 
-`build_dataset.py` opens Chrome and saves the 208 files in `data/`. It takes about 12 minutes and needs internet. The files are already in the repository, so you can skip it. `baselines.py` prints the table for the simple locators. `pair_features.py` builds the pairs and prints a quick check that the same-element pairs really look more alike. It also saves `results/pairs.csv`, which is about 4 MB, so I do not upload it. `train_matcher.py` trains and tests both models in about a minute and a half, prints the tables above, and saves `results/matcher_results.csv`.
+`build_dataset.py` opens Chrome and saves the 208 files in `data/`. It takes about 12 minutes and needs internet. The files are already in the repository, so you can skip it. `baselines.py` prints the table for the simple locators. `pair_features.py` builds the pairs and prints a quick check that the same-element pairs really look more alike. It also saves `results/pairs.csv`, which is about 5.5 MB, so I do not upload it. `train_matcher.py` trains and tests both models in about a minute and a half, prints the tables above, and saves `results/matcher_results.csv`.
 
 ## Files
 
