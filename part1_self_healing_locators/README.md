@@ -83,11 +83,29 @@ The simple locators broke exactly where I expected. "By id" falls apart when ids
 
 What surprised me is that id and name are not perfect even when nothing changes. Only 42 of the 84 elements have an id, and only 9 have a name. On the demoqa form, three elements share the id `subjects-label` and three radio buttons share the name `gender`. So the locator grabs the first one, and that is often the wrong one.
 
-The model earns its place when the structure of the page changes. After layout, reorder and mixed changes, logistic regression found 94% to 100% of the elements on an unseen site. The best simple locator found between 21% and 86%. When nothing changes, or only the text changes, plain XPath is already at 100%, so the model adds nothing there.
+The model is worth it when the structure of the page changes. After layout, reorder and mixed changes, logistic regression found 94% to 100% of the elements on an unseen site. The best simple locator found between 21% and 86%. When nothing changes, or only the text changes, plain XPath is already at 100%, so the model adds nothing there.
 
 I expected gradient boosting to win, because it is the stronger model. It did not. Logistic regression was better in both tests, which I am happy about, because I can explain its weights.
 
-Gradient boosting was also a little worse than a plain XPath when nothing had changed at all (94.0% against 100% on unseen pages). That gives me an idea for a better design: use the normal locator first, and ask the model only when the locator fails. I have not built or tested that yet.
+Gradient boosting was also a little worse than a plain XPath when nothing had changed at all (94.0% against 100% on unseen pages). That gave me an idea for a better design: use the normal locator first, and ask the model only when the locator fails.
+
+### Locator first, model only as a fallback
+
+I tested that idea afterwards. The test tries id, then name, then XPath, and only when none of them finds anything does it ask logistic regression. When a locator finds the wrong element, that answer is kept, because a real test cannot tell that it got the wrong one.
+
+| Change | id > name > XPath | Logistic regression | Locator, then AI |
+| --- | --- | --- | --- |
+| none | 97.6% | 100% | 97.6% |
+| rename | 96.4% | 95.5% | 96.4% |
+| text | 97.6% | 100% | 97.6% |
+| layout | 47.6% | 100% | 97.6% |
+| reorder | 85.5% | 98.3% | 85.5% |
+| mixed | 21.2% | 94.0% | 93.1% |
+| all | 70.7% | 97.7% | 94.2% |
+
+(Unseen site. On unseen pages it is 94.5%, against 98.9% for the model alone.)
+
+The idea did not work. The fallback fixes the layout and mixed changes, where the locators find nothing, but it is still 3.5 points worse than the model alone. The reason is the silent mistakes. After a reorder, the old XPath often points to a different element that is now in that place, and on the demoqa form an id is shared by three elements. In both cases the locator returns an element, so the model is never asked. It is only better than the model after renames, by 0.9 points. So the trouble is not the locator that finds nothing. It is the locator that quietly finds the wrong element. To fix that, a design would have to check the locator's answer too, for example by asking the model if the found element still looks like the old one. I have not tried that.
 
 ### Is the model just using the page order?
 

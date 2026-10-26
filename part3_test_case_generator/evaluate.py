@@ -1,4 +1,4 @@
-"""Compare prompt A and prompt B on the saved answers in outputs/.
+"""Compare the prompts (A, B and C) on the saved answers in outputs/.
 
 Automatic measures, for each prompt over all 8 requirements:
 - valid answers (after at most one retry)
@@ -9,11 +9,12 @@ Automatic measures, for each prompt over all 8 requirements:
   the same requirement (ignoring case and punctuation)
 - number of tests, negative tests and boundary tests
 
-Manual check: the first run writes results/manual_check.csv with 20 test
-cases (10 from each prompt), mixed up and without the prompt name, so the
-reader does not know which prompt wrote which. Fill in the yes/no columns in
-Excel, save, and run this script again. The prompt names are in
-results/manual_key.csv.
+Manual check: for each round in ROUNDS, the first run writes a sheet with
+10 test cases from each of its prompts, mixed up and without the prompt name,
+so the reader does not know which prompt wrote which. Fill in the yes/no
+columns in Excel, save, and run this script again. The prompt names are in
+the key file. Round 1 compares A and B. Round 2 came later, for prompt C: it
+compares B and C, with B tests that were not in round 1.
 """
 import csv
 import json
@@ -27,8 +28,11 @@ from test_format import check
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS_DIR = os.path.join(HERE, "results")
-MANUAL_FILE = os.path.join(RESULTS_DIR, "manual_check.csv")
-KEY_FILE = os.path.join(RESULTS_DIR, "manual_key.csv")
+# (sheet, key, prompts in the round, random seed)
+ROUNDS = [
+    ("manual_check.csv", "manual_key.csv", ["A", "B"], 1),
+    ("manual_check_2.csv", "manual_key_2.csv", ["B", "C"], 2),
+]
 MANUAL_COLUMNS = ["sensible", "invents_feature", "covers_correct"]
 SAMPLE_PER_PROMPT = 10
 
@@ -99,18 +103,31 @@ def excel_safe(value):
     return "'" + value if value[:1] in ("=", "+", "-", "@") else value
 
 
-def write_manual_sheet(answers, requirements):
-    """20 test cases, mixed up, without the prompt name."""
-    rng = random.Random(1)
+def sampled_before():
+    """(prompt, requirement, test id) of every test already in a key file."""
+    seen = set()
+    for _, key, _, _ in ROUNDS:
+        path = os.path.join(RESULTS_DIR, key)
+        if os.path.exists(path):
+            with open(path, encoding="utf-8") as f:
+                seen |= {(r["prompt"], r["requirement"], r["test_id"]) for r in csv.DictReader(f)}
+    return seen
+
+
+def write_manual_sheet(answers, requirements, sheet, key, prompts, seed):
+    """10 test cases from each prompt, mixed up, without the prompt name."""
+    rng = random.Random(seed)
+    skip = sampled_before()
     criteria_text = {r["id"]: " | ".join(f"{k}: {v}" for k, v in r["criteria"].items())
                      for r in requirements}
     picked = []
-    for p, by_req in answers.items():
-        pool = [(p, rid, case) for rid, cases in by_req.items() for case in cases]
+    for p in prompts:
+        pool = [(p, rid, case) for rid, cases in answers[p].items() for case in cases
+                if (p, rid, case["id"]) not in skip]
         picked += rng.sample(pool, min(SAMPLE_PER_PROMPT, len(pool)))
     rng.shuffle(picked)
 
-    with open(MANUAL_FILE, "w", newline="", encoding="utf-8-sig") as f:
+    with open(os.path.join(RESULTS_DIR, sheet), "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f)
         w.writerow(["item", "requirement", "criteria", "title", "type", "steps",
                     "expected_result", "covers"] + MANUAL_COLUMNS + ["note"])
@@ -118,31 +135,24 @@ def write_manual_sheet(answers, requirements):
             w.writerow([i, rid, criteria_text[rid], excel_safe(case["title"]), case["type"],
                         excel_safe(" / ".join(case["steps"])), excel_safe(case["expected_result"]),
                         ", ".join(case["covers"]), "", "", "", ""])
-    with open(KEY_FILE, "w", newline="", encoding="utf-8") as f:
+    with open(os.path.join(RESULTS_DIR, key), "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(["item", "prompt", "requirement", "test_id"])
         for i, (p, rid, case) in enumerate(picked, 1):
             w.writerow([i, p, rid, case["id"]])
 
 
-def read_manual_sheet():
-    """Per prompt and column: (number of 'yes', number answered). None if the
-    sheet has not been filled in yet."""
-    if not (os.path.exists(MANUAL_FILE) and os.path.exists(KEY_FILE)):
-        return None
-    with open(KEY_FILE, encoding="utf-8") as f:
+def read_manual_sheet(sheet, key, counts):
+    """Add the answers in one sheet to counts[prompt][column] = [yes, answered]."""
+    with open(os.path.join(RESULTS_DIR, key), encoding="utf-8") as f:
         prompt_of = {row["item"]: row["prompt"] for row in csv.DictReader(f)}
-    counts = {p: {c: [0, 0] for c in MANUAL_COLUMNS} for p in PROMPTS}
-    with open(MANUAL_FILE, encoding="utf-8-sig") as f:
+    with open(os.path.join(RESULTS_DIR, sheet), encoding="utf-8-sig") as f:
         for row in csv.DictReader(f):
             for c in MANUAL_COLUMNS:
                 answer = row.get(c, "").strip().lower()
                 if answer in ("yes", "y", "no", "n"):
                     counts[prompt_of[row["item"]]][c][1] += 1
                     counts[prompt_of[row["item"]]][c][0] += answer in ("yes", "y")
-    if not any(n for p in counts.values() for _, n in p.values()):
-        return None
-    return counts
 
 
 def run():
@@ -158,29 +168,32 @@ def run():
                                      f"({info[p]['first_try']} on the first try)"}
         table[p].update(measures(answers, requirements)[p])
 
-    manual = read_manual_sheet()
-    if manual:
+    # Every round adds to the same counts, so B is counted over both rounds.
+    counts = {p: {c: [0, 0] for c in MANUAL_COLUMNS} for p in PROMPTS}
+    for sheet, key, prompts, seed in ROUNDS:
+        if os.path.exists(os.path.join(RESULTS_DIR, sheet)):
+            read_manual_sheet(sheet, key, counts)
+        elif not any(info[p]["missing"] for p in prompts):
+            write_manual_sheet(answers, requirements, sheet, key, prompts, seed)
+            print(f"Wrote results/{sheet}: fill in the yes/no columns, then run this script again.")
+            print()
+    if any(n for p in counts.values() for _, n in p.values()):
         for p in PROMPTS:
             for c in MANUAL_COLUMNS:
-                yes, n = manual[p][c]
+                yes, n = counts[p][c]
                 table[p][f"manual: {c.replace('_', ' ')}"] = f"{yes} of {n}" if n else "-"
-    elif not os.path.exists(MANUAL_FILE):
-        write_manual_sheet(answers, requirements)
-        print(f"Wrote {os.path.relpath(MANUAL_FILE, HERE)}: fill in the yes/no columns, "
-              "then run this script again.")
-        print()
 
     names = list(next(iter(table.values())))
     width = max(len(n) for n in names)
-    print(f"{'measure':<{width}}  {'prompt A':>22}  {'prompt B':>22}")
+    print(f"{'measure':<{width}}" + "".join(f"  {'prompt ' + p:>22}" for p in PROMPTS))
     for n in names:
-        print(f"{n:<{width}}  {str(table['A'][n]):>22}  {str(table['B'][n]):>22}")
+        print(f"{n:<{width}}" + "".join(f"  {str(table[p][n]):>22}" for p in PROMPTS))
 
     with open(os.path.join(RESULTS_DIR, "results.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        w.writerow(["measure", "prompt A", "prompt B"])
+        w.writerow(["measure"] + [f"prompt {p}" for p in PROMPTS])
         for n in names:
-            w.writerow([n, table["A"][n], table["B"][n]])
+            w.writerow([n] + [table[p][n] for p in PROMPTS])
     print()
     print("Saved results/results.csv")
 

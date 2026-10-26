@@ -1,0 +1,14 @@
+[
+  {
+    "id": "R9",
+    "title": "Strong password rules",
+    "description": "A logged-in user sets a new password on the account page. This is a stricter version of R2, with rules added by a tester for better security.",
+    "criteria": {
+      "AC1": "The password must be 8 to 64 characters long.",
+      "AC2": "The password must contain at least one uppercase letter, one lowercase letter, one digit and one special character (such as ! @ # $ %).",
+      "AC3": "The new password must not be the same as the current password or any password the user has used before. If it is, the page shows \"You cannot reuse a recent password\".",
+      "AC4": "While the user types, a checklist under the field shows every rule from AC1 and AC2 that is not met yet. Each rule disappears from the checklist as soon as the password meets it.",
+      "AC5": "After a successful change, the user sees the message \"Password updated\"."
+    }
+  }
+]

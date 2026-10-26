@@ -1,0 +1,21 @@
+{
+  "requirement": "R9",
+  "prompt": "B",
+  "model": "qwen2.5:3b",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_gpu": 0,
+    "num_predict": 4096
+  },
+  "valid": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "seconds": 77,
+      "output_tokens": 874,
+      "problems": [],
+      "text": "{\"test_cases\": [\n    {\"id\": \"TC1\", \"title\": \"Test password length between 8 and 64 characters\", \"type\": \"positive\", \"preconditions\": \"User is logged in and on the account page\", \"steps\": [\"User types a password that is 8 characters long\", \"User types a password that is 64 characters long\"], \"expected_result\": \"Password length is validated correctly\", \"covers\": [\"AC1\", \"AC4\"]},\n    {\"id\": \"TC2\", \"title\": \"Test password length just below the boundary\", \"type\": \"boundary\", \"preconditions\": \"User is logged in and on the account page\", \"steps\": [\"User types a password that is 7 characters long\"], \"expected_result\": \"Password length validation shows error message\", \"covers\": [\"AC1\"]},\n    {\"id\": \"TC3\", \"title\": \"Test password length just above the boundary\", \"type\": \"boundary\", \"preconditions\": \"User is logged in and on the account page\", \"steps\": [\"User types a password that is 65 characters long\"], \"expected_result\": \"Password length validation shows error message\", \"covers\": [\"AC1\"]},\n    {\"id\": \"TC4\", \"title\": \"Test password with all valid characters\", \"type\": \"positive\", \"preconditions\": \"User is logged in and on the account page\", \"steps\": [\"User types a password that contains at least one uppercase letter, one lowercase letter, one digit, and one special character\"], \"expected_result\": \"Password validation shows all rules are met\", \"covers\": [\"AC2\", \"AC4\"]},\n    {\"id\": \"TC5\", \"title\": \"Test password with all valid characters just below the boundary\", \"type\": \"boundary\", \"preconditions\": \"User is logged in and on the account page\", \"steps\": [\"User types a password that contains at least one uppercase letter, one lowercase letter, one digit, and one special character, but is 7 characters long\"], \"expected_result\": \"Password validation shows error message\", \"covers\": [\"AC2\", \"AC4\"]},\n    {\"id\": \"TC6\", \"title\": \"Test password with all valid characters just above the boundary\", \"type\": \"boundary\", \"preconditions\": \"User is logged in and on the account page\", \"steps\": [\"User types a password that contains at least one uppercase letter, one lowercase letter, one digit, and one special character, but is 65 characters long\"], \"expected_result\": \"Password validation shows error message\", \"covers\": [\"AC2\", \"AC4\"]},\n    {\"id\": \"TC7\", \"title\": \"Test password with all valid characters and a recent password\", \"type\": \"negative\", \"preconditions\": \"User is logged in and on the account page\", \"steps\": [\"User types a password that contains at least one uppercase letter, one lowercase letter, one digit, and one special character, but is the same as the current password\"], \"expected_result\": \"Password validation shows error message\", \"covers\": [\"AC3\"]},\n    {\"id\": \"TC8\", \"title\": \"Test password with all valid characters and a recent password just below the boundary\", \"type\": \"negative\", \"preconditions\": \"User is logged in and on the account page\", \"steps\": [\"User types a password that contains at least one uppercase letter, one lowercase letter, one digit, and one special character, but is the same as the current password and is 7 characters long\"], \"expected_result\": \"Password validation shows error message\", \"covers\": [\"AC3\"]},\n    {\"id\": \"TC9\", \"title\": \"Test password with all valid characters and a recent password just above the boundary\", \"type\": \"negative\", \"preconditions\": \"User is logged in and on the account page\", \"steps\": [\"User types a password that contains at least one uppercase letter, one lowercase letter, one digit, and one special character, but is the same as the current password and is 65 characters long\"], \"expected_result\": \"Password validation shows error message\", \"covers\": [\"AC3\"]}\n]}"
+    }
+  ]
+}

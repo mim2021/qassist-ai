@@ -1,0 +1,21 @@
+{
+  "requirement": "R6",
+  "prompt": "C",
+  "model": "qwen2.5:3b",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_gpu": 0,
+    "num_predict": 4096
+  },
+  "valid": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "seconds": 29,
+      "output_tokens": 354,
+      "problems": [],
+      "text": "{\"test_cases\": [{\"id\": \"TC1\", \"title\": \"Test that a valid registration with all required fields succeeds\", \"type\": \"positive\",\n\"preconditions\": \"User is on the registration page and has a valid name, email, and password.\", \"steps\": [\n\"User enters a valid name.\",\n\"User enters a valid email that is not registered.\",\n\"User enters a valid password.\",\n\"User clicks the 'Register' button.\"],\n\"expected_result\": \"User is redirected to a confirmation page with a success message.\",\n\"covers\": [\"AC1\"]},\n{\"id\": \"TC2\", \"title\": \"Test that an invalid email already registered shows the correct message\", \"type\": \"negative\",\n\"preconditions\": \"User is on the registration page and has a valid name and password, but an invalid email that is already registered.\",\n\"steps\": [\n\"User enters a valid name.\",\n\"User enters an already registered email.\",\n\"User enters a valid password.\",\n\"User clicks the 'Register' button.\"],\n\"expected_result\": \"Page shows 'Email already registered'.\",\n\"covers\": [\"AC2\"]},\n{\"id\": \"TC3\", \"title\": \"Test that a user under 18 years old cannot register\", \"type\": \"negative\",\n\"preconditions\": \"User is on the registration page and has a valid name and password, but is under 18 years old.\",\n\"steps\": [\n\"User enters a valid name.\",\n\"User enters a valid email that is not registered.\",\n\"User enters a valid password.\",\n\"User clicks the 'Register' button.\"],\n\"expected_result\": \"User is not registered and no message is shown.\",\n\"covers\": [\"AC3\"]}]}"
+    }
+  ]
+}

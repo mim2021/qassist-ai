@@ -12,7 +12,8 @@ import argparse
 from embeddings import MODEL_NAME, MODELS_DIR, embed
 from load_data import DESCRIPTION_CHARS, PROJECTS, load_project
 
-LINKS = {"vscode": "https://github.com/microsoft/vscode/issues/{}"}
+LINKS = {"vscode": "https://github.com/microsoft/vscode/issues/{}",
+         "thunderbird": "https://bugzilla.mozilla.org/show_bug.cgi?id={}"}
 
 
 def find(project, title, description, top=5):

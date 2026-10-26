@@ -24,6 +24,13 @@ PROJECTS = {
         "links_column": "Duplicates",
         "date_format": None,
     },
+    # Added after the first two, as a check on a project I had not looked at.
+    "thunderbird": {
+        "reports": "Thunderbird_bugs.csv",
+        "links": "Thunderbird_bugs-combined.csv",
+        "links_column": "Duplicate id",
+        "date_format": None,
+    },
 }
 # How much of the description we use. The same text goes to every method,
 # so the comparison is fair.

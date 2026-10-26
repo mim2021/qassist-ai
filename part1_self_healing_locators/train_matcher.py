@@ -38,6 +38,9 @@ MODELS = {
     ),
     "gradient boosting": lambda: GradientBoostingClassifier(random_state=42),
 }
+# The locator chain first, and logistic regression only when it finds nothing.
+FALLBACK_MODEL = "logistic regression"
+FALLBACK = "locator, then AI"
 
 
 def site_of(page):
@@ -86,7 +89,7 @@ def run_split(data, group_of, features, failures=None):
     """Leave one group out. Returns counts[kind][method] = correct, and
     counts[kind]["elements"]."""
     counts = {k: {"elements": 0} for k in KINDS}
-    methods = list(LOCATORS) + ["id > name > XPath"] + list(MODELS)
+    methods = list(LOCATORS) + ["id > name > XPath"] + list(MODELS) + [FALLBACK]
     for k in KINDS:
         for m in methods:
             counts[k][m] = 0
@@ -115,6 +118,12 @@ def run_split(data, group_of, features, failures=None):
                 found = chain(old, d["after"])
                 if found is not None and found["qid"] == old["qid"]:
                     c["id > name > XPath"] += 1
+                # Locator first, model only when the locator finds nothing.
+                # A test cannot tell when a locator finds the wrong element,
+                # so a wrong match is kept, as it would be in a real run.
+                pick = found["qid"] if found is not None else picks[FALLBACK_MODEL][old["qid"]]
+                if pick == old["qid"]:
+                    c[FALLBACK] += 1
                 for name in MODELS:
                     if picks[name][old["qid"]] == old["qid"]:
                         c[name] += 1
@@ -129,7 +138,8 @@ def pct(a, b):
 
 def print_table(title, counts, methods):
     print(title)
-    short = {"logistic regression": "AI: LogReg", "gradient boosting": "AI: GBoost"}
+    short = {"logistic regression": "AI: LogReg", "gradient boosting": "AI: GBoost",
+             FALLBACK: "locator, then AI"}
     heads = [short.get(m, m) for m in methods]
     print(f"{'change':<8} {'elements':>8} " + " ".join(f"{h:>17}" for h in heads))
     total = {m: 0 for m in methods}

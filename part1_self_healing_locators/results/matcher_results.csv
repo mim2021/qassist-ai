@@ -5,69 +5,81 @@ unseen page,none,by XPath,84,84,1.0
 unseen page,none,id > name > XPath,82,84,0.9762
 unseen page,none,logistic regression,84,84,1.0
 unseen page,none,gradient boosting,79,84,0.9405
+unseen page,none,"locator, then AI",82,84,0.9762
 unseen page,rename,by id,72,420,0.1714
 unseen page,rename,by name,35,420,0.0833
 unseen page,rename,by XPath,420,420,1.0
 unseen page,rename,id > name > XPath,405,420,0.9643
 unseen page,rename,logistic regression,420,420,1.0
 unseen page,rename,gradient boosting,402,420,0.9571
+unseen page,rename,"locator, then AI",405,420,0.9643
 unseen page,text,by id,200,420,0.4762
 unseen page,text,by name,35,420,0.0833
 unseen page,text,by XPath,420,420,1.0
 unseen page,text,id > name > XPath,410,420,0.9762
 unseen page,text,logistic regression,420,420,1.0
 unseen page,text,gradient boosting,396,420,0.9429
+unseen page,text,"locator, then AI",410,420,0.9762
 unseen page,layout,by id,200,420,0.4762
 unseen page,layout,by name,35,420,0.0833
 unseen page,layout,by XPath,0,420,0.0
 unseen page,layout,id > name > XPath,200,420,0.4762
 unseen page,layout,logistic regression,420,420,1.0
 unseen page,layout,gradient boosting,405,420,0.9643
+unseen page,layout,"locator, then AI",410,420,0.9762
 unseen page,reorder,by id,200,420,0.4762
 unseen page,reorder,by name,35,420,0.0833
 unseen page,reorder,by XPath,316,420,0.7524
 unseen page,reorder,id > name > XPath,359,420,0.8548
 unseen page,reorder,logistic regression,413,420,0.9833
 unseen page,reorder,gradient boosting,387,420,0.9214
+unseen page,reorder,"locator, then AI",359,420,0.8548
 unseen page,mixed,by id,62,420,0.1476
 unseen page,mixed,by name,35,420,0.0833
 unseen page,mixed,by XPath,0,420,0.0
 unseen page,mixed,id > name > XPath,89,420,0.2119
 unseen page,mixed,logistic regression,404,420,0.9619
 unseen page,mixed,gradient boosting,399,420,0.95
+unseen page,mixed,"locator, then AI",398,420,0.9476
 unseen site,none,by id,40,84,0.4762
 unseen site,none,by name,7,84,0.0833
 unseen site,none,by XPath,84,84,1.0
 unseen site,none,id > name > XPath,82,84,0.9762
 unseen site,none,logistic regression,84,84,1.0
 unseen site,none,gradient boosting,84,84,1.0
+unseen site,none,"locator, then AI",82,84,0.9762
 unseen site,rename,by id,72,420,0.1714
 unseen site,rename,by name,35,420,0.0833
 unseen site,rename,by XPath,420,420,1.0
 unseen site,rename,id > name > XPath,405,420,0.9643
 unseen site,rename,logistic regression,401,420,0.9548
 unseen site,rename,gradient boosting,390,420,0.9286
+unseen site,rename,"locator, then AI",405,420,0.9643
 unseen site,text,by id,200,420,0.4762
 unseen site,text,by name,35,420,0.0833
 unseen site,text,by XPath,420,420,1.0
 unseen site,text,id > name > XPath,410,420,0.9762
 unseen site,text,logistic regression,420,420,1.0
 unseen site,text,gradient boosting,416,420,0.9905
+unseen site,text,"locator, then AI",410,420,0.9762
 unseen site,layout,by id,200,420,0.4762
 unseen site,layout,by name,35,420,0.0833
 unseen site,layout,by XPath,0,420,0.0
 unseen site,layout,id > name > XPath,200,420,0.4762
 unseen site,layout,logistic regression,420,420,1.0
 unseen site,layout,gradient boosting,395,420,0.9405
+unseen site,layout,"locator, then AI",410,420,0.9762
 unseen site,reorder,by id,200,420,0.4762
 unseen site,reorder,by name,35,420,0.0833
 unseen site,reorder,by XPath,316,420,0.7524
 unseen site,reorder,id > name > XPath,359,420,0.8548
 unseen site,reorder,logistic regression,413,420,0.9833
 unseen site,reorder,gradient boosting,414,420,0.9857
+unseen site,reorder,"locator, then AI",359,420,0.8548
 unseen site,mixed,by id,62,420,0.1476
 unseen site,mixed,by name,35,420,0.0833
 unseen site,mixed,by XPath,0,420,0.0
 unseen site,mixed,id > name > XPath,89,420,0.2119
 unseen site,mixed,logistic regression,395,420,0.9405
 unseen site,mixed,gradient boosting,379,420,0.9024
+unseen site,mixed,"locator, then AI",391,420,0.931

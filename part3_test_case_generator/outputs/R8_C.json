@@ -1,0 +1,21 @@
+{
+  "requirement": "R8",
+  "prompt": "C",
+  "model": "qwen2.5:3b",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_gpu": 0,
+    "num_predict": 4096
+  },
+  "valid": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "seconds": 34,
+      "output_tokens": 390,
+      "problems": [],
+      "text": "{\"test_cases\": [{\"id\": \"TC1\", \"title\": \"Test cancelling an order placed within 24 hours\", \"type\": \"positive\", \"preconditions\": \"The order was placed within the last 24 hours and the customer is logged in.\", \"steps\": [\"Go to the order history page.\", \"Select an order that was placed within the last 24 hours.\", \"Click the 'Cancel' button for the selected order.\", \"Verify the order status changes to 'Cancelled'.\"], \"expected_result\": \"The order status changes to 'Cancelled' and a cancellation email is sent to the customer.\", \"covers\": [\"AC1\"]}, {\"id\": \"TC2\", \"title\": \"Test cancelling an order that has already been shipped\", \"type\": \"negative\", \"preconditions\": \"The order has already been shipped.\", \"steps\": [\"Go to the order history page.\", \"Select an order that has already been shipped.\", \"Attempt to click the 'Cancel' button for the selected order.\"], \"expected_result\": \"The order cannot be cancelled and a message is displayed saying 'This order has already been shipped and cannot be cancelled.'\", \"covers\": [\"AC2\"]}, {\"id\": \"TC3\", \"title\": \"Test cancelling an order and verifying the cancellation email\", \"type\": \"positive\", \"preconditions\": \"The order was placed within the last 24 hours and the customer is logged in.\", \"steps\": [\"Go to the order history page.\", \"Select an order that was placed within the last 24 hours.\", \"Click the 'Cancel' button for the selected order.\", \"Verify that a cancellation email is sent to the customer.\"], \"expected_result\": \"A cancellation email is sent to the customer and the order status changes to 'Cancelled'.\", \"covers\": [\"AC1\", \"AC3\", \"AC4\"]}] }"
+    }
+  ]
+}

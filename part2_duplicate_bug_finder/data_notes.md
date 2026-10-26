@@ -65,3 +65,10 @@ Test queries per year: Hadoop 2020: 15, 2021: 11, 2022: 25, 2023: 8, 2024: 7. VS
 ## Privacy
 
 These are public bug reports, but the text can contain people's names, user names or log lines. I do not copy report text into the README, only ids and short summaries where needed.
+
+## Thunderbird (added later as a check)
+
+- Files: `thunderbird/Thunderbird_bugs.csv` (13.8 MB) and `thunderbird/Thunderbird_bugs-combined.csv`.
+- Reports: 15,192 rows, created 1 Jan 2020 to 5 Mar 2025, the same columns as Hadoop, and no repeated ids. `Created` looks like `2020-01-01 01:58:36+00:00`. The description is empty for 181 rows, and only 21 descriptions contain an HTML comment.
+- Links: 4,288 rows with columns `Issue id` and `Duplicate id`, one id in each. 3,214 reports have Resolution "DUPLICATE".
+- Test queries: 1,917, with 1,974 right answers.

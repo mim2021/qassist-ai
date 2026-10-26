@@ -1,4 +1,4 @@
-"""Download the Hadoop and VS Code files from GitBugs into data/.
+"""Download the Hadoop, VS Code and Thunderbird files from GitBugs into data/.
 
 GitBugs: https://github.com/av9ash/gitbugs (CC BY 4.0, cite arXiv:2504.09651).
 The files are too big to upload to GitHub through the website, so they are
@@ -14,6 +14,8 @@ FILES = [
     "hadoop/hadoop_bugs-combined.csv",
     "ms_vscode_bugs/vscode_bugs.csv.zip",
     "ms_vscode_bugs/vscode_bugs-combined.csv",
+    "thunderbird/Thunderbird_bugs.csv",
+    "thunderbird/Thunderbird_bugs-combined.csv",
 ]
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 

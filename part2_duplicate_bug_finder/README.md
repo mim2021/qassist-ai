@@ -12,7 +12,7 @@ So I asked a simple question. When a new bug report comes in, can a tool show th
 
 I used GitBugs, a public collection of bug reports with duplicate labels made by Avinash Patil ([github.com/av9ash/gitbugs](https://github.com/av9ash/gitbugs)). Its README says it is released under CC BY 4.0, and it asks users to cite the paper (see Credit below). I did not use any company tickets.
 
-I picked two projects on purpose, because they use different trackers and different kinds of reporters:
+I picked two projects on purpose, because they use different trackers and different kinds of reporters. Later I added a third one, Thunderbird, as a check. It has its own section near the end.
 
 | Project | Tracker | Reports | Created |
 | --- | --- | --- | --- |
@@ -56,7 +56,7 @@ I score each method with the usual measures. Recall@k is the share of queries wh
 
 ## What the numbers say
 
-On VS Code, the AI method clearly helps. Embeddings put the true duplicate in the top 5 for 31.8% of queries, almost twice as often as TF-IDF (16.9%). That fits the problem: VS Code reports come from thousands of different users, and they describe the same bug in different words.
+On VS Code, the AI method clearly helps. Embeddings put the true duplicate in the top 5 for 31.8% of queries, almost twice as often as TF-IDF (16.9%). That makes sense to me, because VS Code reports come from thousands of different users, and they describe the same bug in different words.
 
 On Hadoop, the four methods are close. TF-IDF is best at the very top (Recall@1), and the hybrid is best at Recall@10 and MRR. With only 66 queries, one query is about 1.5%, so I would not call any of these a clear winner. The simple word method is a serious opponent here, just as the paper above found.
 
@@ -68,11 +68,13 @@ The two projects are very different in difficulty. A Hadoop query searches about
 
 I picked four VS Code queries and one Hadoop query where embeddings did not find the true duplicate in the top 10, and read them.
 
-1. **The bug template drowns the real text.** A report about the terminal ignoring the working directory with a different profile in a multi-folder workspace. Its true duplicate is a report about the "selected working directory" being ignored for a "non-default profile" in a "multi-folder workspace". It is the same bug in different words, but the new report's description starts with the GitHub bug template (`<!-- Do Not Delete This! bug_report_template -->` and more). So the top picks were other terminal reports with the same template, at similarity 0.86. The true duplicate was ranked 258th.
-2. **The label may be too narrow.** A report about drag and drop in notebooks causing unexpected scrolling. Its labelled duplicate is about focus and scroll position jumping to the top on many operations. The model's top picks were "Drag and drop Notebook cells broken" and "Cell drag and drop doesn't work". These look at least as close to me, so this may be a duplicate that nobody linked rather than a real mistake.
-3. **Same cause, different symptom.** "git diff doesn't work in root of a drive" against an older report about source control showing an empty file when the project is on a remote share. A developer can see that both come from the same path handling, but the words and the symptoms are different. Neither embeddings (rank 439) nor TF-IDF (rank 8,911) came close. Both reports start with the template too.
-4. **Same cause, different feature.** A report about `@link` making a Windows path inside a Dev Container, against an older one about JSDoc links in remote sources opening on the host system. Again it is one root cause described from two sides, and both descriptions start with the template.
-5. **Symptom against cause (Hadoop).** "Fix compilation error of ITUseHadoopCodecs with -DskipShade" is linked to a report saying lz4-java and snappy-java should be excluded from relocation in the shaded libraries. One describes the build error and the other describes its cause. The model's second pick, "hadoop-client-integration-tests doesn't work when building with skipShade", looks closely related to me.
+The first one showed me how much the bug template gets in the way. It was a report about the terminal ignoring the working directory with a different profile in a multi-folder workspace. Its true duplicate talks about the "selected working directory" being ignored for a "non-default profile" in a "multi-folder workspace", so it is the same bug in different words. But the new report's description starts with the GitHub bug template (`<!-- Do Not Delete This! bug_report_template -->` and more), and the top picks were other terminal reports with the same template, at similarity 0.86. The true duplicate came in at rank 258.
+
+In the second one, I am not sure the model was wrong at all. The report was about drag and drop in notebooks causing unexpected scrolling, and its labelled duplicate is about focus and scroll position jumping to the top on many operations. The model's top picks were "Drag and drop Notebook cells broken" and "Cell drag and drop doesn't work". These look at least as close to me, so this may be a duplicate that nobody linked.
+
+The third and fourth had the same story: one root cause, described from two sides. "git diff doesn't work in root of a drive" was linked to an older report about source control showing an empty file when the project is on a remote share. A developer can see that both come from the same path handling, but the words and the symptoms are different, and neither embeddings (rank 439) nor TF-IDF (rank 8,911) came close. The fourth was a report about `@link` making a Windows path inside a Dev Container, linked to one about JSDoc links in remote sources opening on the host system. Both of these pairs also start with the template.
+
+The Hadoop one put a symptom against its cause. "Fix compilation error of ITUseHadoopCodecs with -DskipShade" is linked to a report saying lz4-java and snappy-java should be excluded from relocation in the shaded libraries. One describes the build error and the other describes why it happens. The model's second pick, "hadoop-client-integration-tests doesn't work when building with skipShade", looks closely related to me.
 
 Two lessons came out of this. First, about 17% of VS Code descriptions start with the bug template, and in three of my four VS Code failures it was there. So I tried removing it, as a separate experiment (next section). Second, many duplicates are linked by a shared root cause, not by a shared description. Text similarity alone cannot find those.
 
@@ -93,7 +95,24 @@ VS Code, before and after removing the template:
 
 Every method got better, so the template was hurting all of them, not only the AI. Embeddings are still the best, and now find the true duplicate in the top 10 for 44.2% of VS Code queries. The hybrid gained the most and is now close to embeddings, because BM25 improved too.
 
-I want to be clear about one thing. The idea came from reading test failures, so this is not a clean, untouched test. I kept it as fair as I could: one rule, decided before the run, applied to every method alike, and the original numbers stay in the main table above. The real check would be a third project that I have not looked at. `find_duplicates.py` still uses the original text.
+This is not a clean test, though, because the idea came from reading the failures. I kept it as fair as I could: one rule, decided before the run, applied to every method alike, and the original numbers stay in the main table above. The real check would be a third project that I have not looked at (next section). `find_duplicates.py` still uses the original text.
+
+## A third project: Thunderbird
+
+Everything above was decided while looking at Hadoop and VS Code. So, as a final check, I added a third project that I had not opened before, and ran all four methods on it without changing any code or setting: Thunderbird, from the same GitBugs collection. It uses Bugzilla, so it is also a third kind of tracker. I picked it over the other Bugzilla projects because it is a medium size (15,192 reports, created Jan 2020 to Mar 2025), so embedding it takes minutes, not hours.
+
+Here most duplicate links can be used: 1,917 test queries, far more than the other two projects together. A query searches about 8,900 older reports (the median).
+
+| Method | Recall@1 | Recall@5 | Recall@10 | MRR |
+| --- | --- | --- | --- | --- |
+| TF-IDF | 23.1% | 41.9% | 50.3% | 0.322 |
+| BM25 | 21.5% | 38.3% | 45.7% | 0.296 |
+| Embeddings | 24.6% | 46.3% | 54.2% | 0.349 |
+| Hybrid | 24.6% | 46.8% | 55.8% | 0.351 |
+
+The embeddings beat the word methods again, but by much less than on VS Code. In the top 5 it is 46.3% against 41.9%, nowhere near twice as much. This time the hybrid is a little better than embeddings alone, because BM25 is not as weak here as on VS Code. So embeddings still come out ahead, but how far ahead depends a lot on the project.
+
+The template check does not carry over. Bugzilla has no HTML-comment bug template: only 21 of the 15,192 descriptions contain an HTML comment, so removing them changed nothing (only TF-IDF's MRR moved, from 0.322 to 0.321). To test the template rule properly I would need a second GitHub project, and GitBugs has only one.
 
 ## Try it on a new report
 
@@ -107,7 +126,7 @@ The top result was "Terminal fails to open after setting terminal.integrated.cwd
 
 ## What this does not show
 
-The duplicate labels come from the project maintainers and are incomplete, so some "misses" may be real duplicates that nobody linked. Two projects are not all projects, and the Hadoop result rests on only 66 queries. VS Code has fewer usable queries than its size suggests, because most links point outside the file. I used one embedding model with no fine-tuning, the first 1,000 characters of each description, and no confidence intervals. And the results are about finding a report that was later linked as a duplicate, not about how much triage time a team would really save.
+The duplicate labels come from the project maintainers and are incomplete, so some "misses" may be real duplicates that nobody linked. Three projects are not all projects, and the Hadoop result rests on only 66 queries. VS Code has fewer usable queries than its size suggests, because most links point outside the file. I used one embedding model with no fine-tuning, the first 1,000 characters of each description, and no confidence intervals. And the results are about finding a report that was later linked as a duplicate, not about how much triage time a team would really save.
 
 ## How to run it
 
@@ -122,7 +141,7 @@ The packages are listed in `requirements.txt` in the main folder. I use a virtua
 
 To repeat the template experiment, run `..\.venv\Scripts\python embeddings.py --clean`. It embeds the cleaned text once more (about 9 minutes) and saves `results/all_methods_clean.csv`.
 
-`download_data.py` downloads about 13 MB from GitBugs into `data/`. The data is not in this repository, because the VS Code file is 41 MB. `baselines.py` runs TF-IDF and BM25 (about 30 seconds). `embeddings.py` downloads the model (about 90 MB) into `models/` the first time, embeds every report once (about 11 minutes on my CPU), saves the vectors in `data/`, and prints the table above. The next runs take seconds.
+`download_data.py` downloads about 27 MB from GitBugs into `data/`. The data is not in this repository, because the VS Code file is 41 MB. `baselines.py` runs TF-IDF and BM25 (about 30 seconds). `embeddings.py` downloads the model (about 90 MB) into `models/` the first time, embeds every report once (about 11 minutes for VS Code and 9 for Thunderbird on my CPU), saves the vectors in `data/`, and prints the table above. The next runs take seconds.
 
 ## Files
 

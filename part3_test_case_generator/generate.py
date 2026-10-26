@@ -41,11 +41,13 @@ def ask(prompt, seed):
         return json.load(response)
 
 
-def run():
-    os.makedirs(OUT_DIR, exist_ok=True)
-    for req in load_requirements():
+def run(requirements=None, out_dir=OUT_DIR):
+    """Ask for every requirement and prompt. bonus.py passes its own
+    requirement and folder; normally it is requirements.json and outputs/."""
+    os.makedirs(out_dir, exist_ok=True)
+    for req in requirements or load_requirements():
         for name, template in PROMPTS.items():
-            path = os.path.join(OUT_DIR, f"{req['id']}_{name}.json")
+            path = os.path.join(out_dir, f"{req['id']}_{name}.json")
             if os.path.exists(path):
                 print(f"{req['id']} prompt {name}: already done")
                 continue

@@ -1,12 +1,12 @@
-measure,prompt A,prompt B
-valid answers,7 of 8 (7 on the first try),7 of 8 (6 on the first try)
-criteria covered,25 of 33 (76%),25 of 33 (76%)
-tests,42,88
-duplicate titles,0 (0%),3 (3%)
-negative tests,21,42
-boundary tests,2,20
-requirements with a negative test,7 of 8,7 of 8
-requirements with a boundary test,1 of 8,6 of 8
-manual: sensible,8 of 10,5 of 10
-manual: invents feature,1 of 10,5 of 10
-manual: covers correct,5 of 10,5 of 10
+measure,prompt A,prompt B,prompt C
+valid answers,7 of 8 (7 on the first try),7 of 8 (6 on the first try),5 of 8 (5 on the first try)
+criteria covered,25 of 33 (76%),25 of 33 (76%),19 of 33 (58%)
+tests,42,88,23
+duplicate titles,0 (0%),3 (3%),0 (0%)
+negative tests,21,42,9
+boundary tests,2,20,2
+requirements with a negative test,7 of 8,7 of 8,5 of 8
+requirements with a boundary test,1 of 8,6 of 8,2 of 8
+manual: sensible,8 of 10,18 of 20,7 of 10
+manual: invents feature,0 of 10,0 of 20,0 of 10
+manual: covers correct,5 of 10,8 of 20,7 of 10

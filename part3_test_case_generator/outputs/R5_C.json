@@ -1,0 +1,21 @@
+{
+  "requirement": "R5",
+  "prompt": "C",
+  "model": "qwen2.5:3b",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_gpu": 0,
+    "num_predict": 4096
+  },
+  "valid": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "seconds": 25,
+      "output_tokens": 306,
+      "problems": [],
+      "text": "{\"test_cases\": [{\"id\": \"TC1\", \"title\": \"Test valid coupon code with valid order total\", \"type\": \"positive\", \"preconditions\": \"Customer has an order total of $50.10 or more and enters a valid coupon code.\", \"steps\": [\"Customer enters a valid coupon code at checkout.\", \"Customer's order total is $50.10 or more.\"], \"expected_result\": \"Coupon code is applied, and the order total is reduced by 10%.\", \"covers\": [\"AC1\"]}, {\"id\": \"TC2\", \"title\": \"Test valid coupon code with valid order total and expired coupon\", \"type\": \"negative\", \"preconditions\": \"Customer has an order total of $50.10 or more and enters a valid coupon code.\", \"steps\": [\"Customer enters a valid coupon code at checkout.\"], \"expected_result\": \"Coupon has expired\", \"covers\": [\"AC4\"]}, {\"id\": \"TC3\", \"title\": \"Test valid coupon code with valid order total and one coupon per order\", \"type\": \"boundary\", \"preconditions\": \"Customer has an order total of $50.10 or more and enters a valid coupon code.\", \"steps\": [\"Customer enters a valid coupon code at checkout.\", \"Customer enters another valid coupon code at checkout.\"], \"expected_result\": \"Only one coupon can be used per order\", \"covers\": [\"AC3\"]}] }"
+    }
+  ]
+}
